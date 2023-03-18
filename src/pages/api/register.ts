@@ -17,7 +17,7 @@ export default async function handler(
     });
 
     if (existingUser) {
-      return res.status(422).json({ error: "Email taken" });
+      return res.status(422).json({ error: "Email already in use" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
