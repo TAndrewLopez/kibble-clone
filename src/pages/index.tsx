@@ -1,17 +1,20 @@
-import useCurrentUser from "@/hooks/useCurrentUser";
+import Billboard from "@/components/Billboard";
+import MovieList from "@/components/MovieList";
+import Navbar from "@/components/Navbar";
+import useMovieList from "@/hooks/useMovieList";
 import { NextPageContext } from "next";
-import { getSession, signOut } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
 const HomePage = () => {
-  const { data: user } = useCurrentUser();
-
+  const { data: movies = [] } = useMovieList();
   return (
     <>
-      <h1 className="text-4xl text-green-500">Netflix Clone</h1>
-      <p className="text-white">Logged in as: {user?.name}</p>
-      <button className="w-full h-10 bg-white" onClick={() => signOut()}>
-        Logout
-      </button>
+      <Navbar />
+      <Billboard />
+
+      <div className="pb-40">
+        <MovieList title="Tending Now" data={movies} />
+      </div>
     </>
   );
 };
